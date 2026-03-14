@@ -6,6 +6,7 @@
 package bo.com.micrium.modulobase.validators;
 
 import bo.com.micrium.modulobase.commons.GlobalValidator;
+import bo.com.micrium.modulobase.commons.GrupoEstado;
 import bo.com.micrium.modulobase.security.services.ActiveDirectoryService;
 import bo.com.micrium.modulobase.common.exceptions.LdapContextException;
 
@@ -62,13 +63,13 @@ public class GrupoValidator extends GlobalValidator {
             if (!model.isPresent()) {
                 errors.rejectValue("id", "field.invalido", "Identificador de usuario invalido.");
             } else {
-                Grupo temp = repository.findByNombreAndEstadoTrue(input.getNombre());
+                Grupo temp = repository.findByNombreAndEstado(input.getNombre(), GrupoEstado.HABILITADO);
                 if (!temp.getRolId().equals(model.get().getRolId())) {
                     errors.rejectValue("nombre", "field.invalido", "El nombre del grupo, se encuentra en uso.");
                 }
             }
         } else {
-            Grupo temp = repository.findByNombreAndEstadoTrue(input.getNombre());
+            Grupo temp = repository.findByNombreAndEstado(input.getNombre(), GrupoEstado.HABILITADO);
             if (temp != null) {
                 errors.rejectValue("nombre", "field.invalido", "El nombre del grupo, se encuentra en uso.");
             }

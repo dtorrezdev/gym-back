@@ -248,6 +248,7 @@ public class JwtAuthenticationController extends GenericControler {
             try {
                 String tipoAuth = tipoAD.getValor().equals(TipoAutenticacion.HIBRIDO.getId())? "1": tipoAD.getValor();
                 ResponseEntity<AutenticacionResponse> out = ResponseEntity.ok(new AutenticacionResponse(
+                        usuario.getId(),
                         token, rol.getId(), rol.getNombre(),
                         modulos, usuario.getNombreCompleto(),
                         inactivityTime.getValor(), timeoutBackend.getValor(),

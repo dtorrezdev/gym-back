@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Enumeration;
 
+import bo.com.micrium.modulobase.commons.RolEstado;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -219,7 +220,7 @@ public class JwtRequestFilter extends OncePerRequestFilter implements Serializab
                 tokenInvalido(request, response);
                 return;
             }
-            Rol rol = rolRepository.findByNombreAndEstadoTrue(rolNombre);
+            Rol rol = rolRepository.findByNombreAndEstado(rolNombre, RolEstado.HABILITADO);
 
             if (rol == null) {
                 tokenInvalido(request, response);

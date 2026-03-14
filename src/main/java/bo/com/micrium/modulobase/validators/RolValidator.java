@@ -9,6 +9,7 @@ import bo.com.micrium.exception.ValidateException;
 import bo.com.micrium.logger.LoggerMain;
 import bo.com.micrium.modulobase.commons.GlobalValidator;
 
+import bo.com.micrium.modulobase.commons.RolEstado;
 import com.micrium.bd.access.enuns.Parametro;
 import com.micrium.bd.access.jpa.models.Rol;
 import com.micrium.bd.access.jpa.repositories.IRolRepository;
@@ -79,14 +80,14 @@ public class RolValidator extends GlobalValidator {
             if (!model.isPresent()) {
                 errors.rejectValue("id", "field.invalido", "Identificador de usuario invalido.");
             } else {
-                Rol temp = repository.findByNombreAndEstadoTrue(input.getNombre());
+                Rol temp = repository.findByNombreAndEstado(input.getNombre(), RolEstado.HABILITADO);
 
                 if (temp != null && !temp.getId().equals(model.get().getId())) {
                     errors.rejectValue("nombre", "field.invalido", "El nombre del rol, se encuentra en uso.");
                 }
             }
         } else {
-            Rol temp = repository.findByNombreAndEstadoTrue(input.getNombre());
+            Rol temp = repository.findByNombreAndEstado(input.getNombre(), RolEstado.HABILITADO);
 
             if (temp != null) {
                 errors.rejectValue("nombre", "field.invalido", "El nombre del rol, se encuentra en uso.");

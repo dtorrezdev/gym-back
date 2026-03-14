@@ -18,6 +18,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class AutenticacionResponse implements Serializable {
 
+    private final Long id;
     private final String token;
     private final Long rolId;
     private final String rol;

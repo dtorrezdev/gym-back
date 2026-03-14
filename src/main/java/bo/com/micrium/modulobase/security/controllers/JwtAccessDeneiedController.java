@@ -9,5 +9,5 @@ public class JwtAccessDeneiedController {
     @GetMapping("/access-denied")
     public String accessDenied() {
         return "access-denied"; // Nombre del archivo HTML en templates
-    }
+    }            
 }

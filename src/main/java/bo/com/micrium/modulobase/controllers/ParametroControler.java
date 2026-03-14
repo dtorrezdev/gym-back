@@ -5,8 +5,8 @@
  */
 package bo.com.micrium.modulobase.controllers;
 
-import bo.com.micrium.modulobase.commons.Acciones;
-import bo.com.micrium.modulobase.commons.ConvercionUtil;
+import bo.com.micrium.modulobase.commons.*;
+
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
@@ -27,10 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import bo.com.micrium.modulobase.commons.TiposComunes;
 //import bo.com.micrium.modulobase.commons.ConvercionUtil;
-import bo.com.micrium.modulobase.commons.ParametroTipo;
-import bo.com.micrium.modulobase.commons.PermisoTipo;
 
 import com.micrium.bd.access.exceptions.DaoException;
 import com.micrium.bd.access.jpa.models.Parametro;
@@ -50,8 +47,6 @@ import bo.com.micrium.modulobase.validators.ParametroValidator;
 import bo.com.micrium.cifrado.ConfigEncriptacion;
 import bo.com.micrium.exception.EncriptacionExcepcion;
 import bo.com.micrium.logger.LoggerMain;
-import bo.com.micrium.modulobase.commons.Apps;
-import bo.com.micrium.modulobase.commons.TipoAutenticacion;
 
 
 /**
@@ -110,7 +105,7 @@ public class ParametroControler extends GenericControler implements ICrudControl
             Page<ParametroResponse> out = null;
             if (idtipoparametro == null || idtipoparametro.isEmpty()) {
                 List<RolTipoParametroPermiso> tiposparametrosIds = rolTipoparametroRepository.
-                        findAllByRolId(rolRepository.findByNombreAndEstadoTrue(obtenerRol()).getId()).
+                        findAllByRolId(rolRepository.findByNombreAndEstado(obtenerRol(), RolEstado.HABILITADO).getId()).
                         stream().filter(p -> p.getTipoPermiso() != PermisoTipo.PERMISO_NINGUNO).collect(Collectors.toList());
 
                 /*out = repository.findAllByTipoParametroIdIn(tiposparametrosIds.stream().map(t -> t.getTipoParametroId()).collect(Collectors.toList()), pageRequest).

@@ -68,6 +68,8 @@ public class EtiquetaControler extends GenericControler implements ICrudControle
     @Autowired
     private transient EtiquetaValidator validator;
 
+    private static final short ESTADO_ACTIVO = 1;
+
     @PostMapping("/by/llave")
     List<EtiquetaResponse> findAllByLlaveIn(@Valid @RequestBody List<String> request) {
         String ipClient = obtenerIp(null);
@@ -256,7 +258,7 @@ public class EtiquetaControler extends GenericControler implements ICrudControle
                 throw new ApiException(result, "Errores en la validacion");
             }
 
-            Etiqueta model = repository.save(new Etiqueta(null, request.getLlave(), request.getValor(), request.getGrupo(), true));
+            Etiqueta model = repository.save(new Etiqueta(null, request.getLlave(), request.getValor(), request.getGrupo(), ESTADO_ACTIVO));
             map.put(TiposComunes.ModuloBase.ROL, ConvercionUtil.toJson(model));
             bitacoraService.guardarBitacora(token, ipClient, form, Acciones.ETIQUETA_CREAR, null, map);
 

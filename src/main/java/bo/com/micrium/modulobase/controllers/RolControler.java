@@ -17,6 +17,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
+import bo.com.micrium.modulobase.commons.*;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +35,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import bo.com.micrium.modulobase.commons.Acciones;
-import bo.com.micrium.modulobase.commons.Apps;
-import bo.com.micrium.modulobase.commons.ConvercionUtil;
-
-import bo.com.micrium.modulobase.commons.TiposComunes;
-import bo.com.micrium.modulobase.commons.PermisoTipo;
-import bo.com.micrium.modulobase.commons.UsuarioEstado;
 import bo.com.micrium.modulobase.common.exceptions.ApiException;
 import bo.com.micrium.modulobase.controllers.template.GenericControler;
 import bo.com.micrium.modulobase.controllers.template.ICrudControler;
@@ -61,7 +55,6 @@ import bo.com.micrium.modulobase.validators.RolValidator;
 import bo.com.micrium.exception.EncriptacionExcepcion;
 import bo.com.micrium.exception.PageException;
 import bo.com.micrium.exception.ValidateException;
-import bo.com.micrium.modulobase.commons.RolEstado;
 import bo.com.micrium.cifrado.ConfigEncriptacion;
 import bo.com.micrium.logger.LoggerMain;
 
@@ -356,7 +349,7 @@ public class RolControler extends GenericControler implements ICrudControler<Rol
                 throw new RuntimeException("No puede ser eliminado porque esta en uso por almenos un usuario");
             }
 
-            long numeroGruposConRol = grupoRepository.countByEstadoTrueAndRolId(model);
+            long numeroGruposConRol = grupoRepository.countByEstadoAndRolId(GrupoEstado.HABILITADO, model);
 
             if (numeroGruposConRol > 0) {
                 throw new RuntimeException("No puede ser eliminado porque esta en uso por almenos un grupo");

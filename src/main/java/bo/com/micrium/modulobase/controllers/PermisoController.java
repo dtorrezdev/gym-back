@@ -186,6 +186,7 @@ public class PermisoController extends GenericControler implements Serializable 
         Long rolIdInt = 0L;
         String desencriptadoId = "";
         try {
+            rolId = rolId.replace('.','/');
             desencriptadoId = ConfigEncriptacion.decrypt(rolId);
             //log.info("desencriptadoId " + desencriptadoId); 
             rolIdInt = Long.parseLong(desencriptadoId);
@@ -291,6 +292,7 @@ public class PermisoController extends GenericControler implements Serializable 
 
         String desencriptadoId = rolId;
         try {
+            rolId = rolId.replace('.', '/');
             desencriptadoId = ConfigEncriptacion.decrypt(rolId);
             LoggerMain.debug("desencriptadoId " + desencriptadoId);
             descrp = Long.valueOf(desencriptadoId);

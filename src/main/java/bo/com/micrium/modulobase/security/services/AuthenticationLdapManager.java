@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import bo.com.micrium.modulobase.commons.GrupoEstado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -162,7 +163,7 @@ public class AuthenticationLdapManager implements AuthenticationManager, Seriali
 
                 List<Grupo> gruposAD = new ArrayList<>();
                 for (String grupoAD : new ActiveDirectoryService(parametroService).getListaGrupos(nombreUsuario)) {
-                    Grupo grupo = grupoRepository.findByNombreAndEstadoTrue(grupoAD);
+                    Grupo grupo = grupoRepository.findByNombreAndEstado(grupoAD, GrupoEstado.HABILITADO);
                     if (grupo != null) {
                         gruposAD.add(grupo);
                     }
