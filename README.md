@@ -15,7 +15,7 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin http://104.225.218.112/modulobase/backend-java21.git
+git remote add origin https://github.com/dtorrezdev/gym-back.git
 git branch -M main
 git push -uf origin main
 ```
